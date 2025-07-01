@@ -12,17 +12,17 @@ type Props = {
 export function GameStatus({ winner, isDraw, isXNext }: Props) {
     useEffect(() => {
         if (winner) {
-            toast.success(` Player ${winner} wins!`);
+            toast.success(`🏆 Player ${winner} wins!`);
         } else if (isDraw) {
-            toast.warning(` It's a draw!`);
+            toast.warning(`🤝 It's a draw!`);
         } else {
-
-            isXNext
-                ? toast.info(' Turn: Player X')
-                : toast.error(' Turn: Player O');
+            if (isXNext) {
+                toast.info('🔵 Turn: Player X');
+            } else {
+                toast.warning('🔴 Turn: Player O');
+            }
         }
     }, [winner, isDraw, isXNext]);
-
 
     if (winner)
         return (
@@ -34,7 +34,7 @@ export function GameStatus({ winner, isDraw, isXNext }: Props) {
     if (isDraw)
         return (
             <p className="text-2xl font-semibold text-gray-600">
-                {`It's a draw!`}
+                It's a draw!
             </p>
         );
 
@@ -43,8 +43,7 @@ export function GameStatus({ winner, isDraw, isXNext }: Props) {
             <p className="text-xl text-black">
                 Turn:{' '}
                 <span
-                    className={`font-bold ${isXNext ? 'text-blue-600' : 'text-red-600'
-                        }`}
+                    className={`font-bold ${isXNext ? 'text-blue-600' : 'text-red-600'}`}
                 >
                     {isXNext ? 'X' : 'O'}
                 </span>
